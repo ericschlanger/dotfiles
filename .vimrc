@@ -4,54 +4,51 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'camelpunch/test_server'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'timcharper/textile.vim'
-Plugin 'tpope/vim-haml'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'rking/ag.vim'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'tpope/vim-abolish'
-Plugin 'pangloss/vim-javascript'
-Plugin 'Raimondi/delimitMate'
-Plugin 'mxw/vim-jsx'
-Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-endwise'
-Plugin 'bling/vim-bufferline'
-Plugin 'plasticboy/vim-markdown'
+Plugin 'AndrewRadev/splitjoin.vim' " Split single lines, join multiple lines
+Plugin 'Raimondi/delimitMate' " Auto-close parenthesis, quotes, etc.
+Plugin 'airblade/vim-gitgutter' " Show git additions, etc. in the left gutter
+Plugin 'bling/vim-bufferline' " Show list of buffers in command bar
+Plugin 'chemzqm/vim-jsx-improve' " Best JSX syntax highlighting
 Plugin 'ervandew/supertab'
-Plugin 'schickling/vim-bufonly'
-Plugin 'tpope/vim-surround'
-Plugin 'othree/html5.vim'
-Plugin 'tpope/vim-bundler'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-dispatch'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'tpope/vim-rake'
-Plugin 'ywen/snipmate.vim'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'lervag/vimtex'
-Plugin 'tmhedberg/matchit'
-Plugin 'AndrewRadev/vim-eco'
-Plugin 'mbbill/undotree'
-Plugin 'skalnik/vim-vroom'
-Plugin 'szw/vim-maximizer'
-Plugin 'scrooloose/syntastic'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
+Plugin 'lervag/vimtex'
+Plugin 'mbbill/undotree'
+Plugin 'mxw/vim-jsx'
 Plugin 'ngmy/vim-rubocop'
-Plugin 'file://~/.vim/bundle/vim-railscast'
-Plugin 'file://~/.vim/bundle/IndexedSearch'
+Plugin 'othree/html5.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'rking/ag.vim'
+Plugin 'schickling/vim-bufonly'
+Plugin 'scrooloose/syntastic'
+Plugin 'skalnik/vim-vroom'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'szw/vim-maximizer'
+Plugin 'timcharper/textile.vim'
+Plugin 'tmhedberg/matchit'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-vinegar'
+Plugin 'vim-ruby/vim-ruby'
 call vundle#end()
+
 set t_Co=256
+let g:solarized_termtrans = 1
+syntax enable
+set background=dark
+colorscheme solarized
 
 " autosave buffers
 set autowriteall
@@ -59,6 +56,9 @@ autocmd BufLeave,FocusLost * wall
 
 set ignorecase
 set smartcase
+
+" 80 character line limit
+set cc=80
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -106,18 +106,24 @@ let g:netrw_liststyle = 3
 let g:netrw_list_hide = '.DS_Store, .localized'  " hide these files
 let g:netrw_preview = 1 " use 'p' to open file on the right
 
-colorscheme railscasts
 "Git commands
 noremap gs :Gstatus<CR>
 noremap ggc :Gcommit<CR>
 noremap gp :Git push<CR>
 noremap gb :Gblame<CR>
 
+set relativenumber
+
 "go back to previous file
 noremap <Leader>, :b#<CR>
 
+"open test
+noremap <Leader>ot :vsplit<ENTER><C-w>l:A<ENTER>
+
 "edit vimrc
 noremap <Leader>ev :vsplit $MYVIMRC<cr>
+"source vimrc
+:nnoremap <leader>sv :source $MYVIMRC<cr>
 
 let ruby_space_errors = 1
 set list!
@@ -266,11 +272,6 @@ map <leader>rg :silent call RailsScriptSearch(expand("'<cword>'"))<CR>:cc<CR>
 map <leader>rd :silent call RailsScriptSearch(expand("'def <cword>'"))<CR>:cc<CR>
 " TextMate cmd+T mode
 
-"ruby
-" autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-" autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 "improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold guibg=#9aadd5 guifg=black
 augroup mkd
