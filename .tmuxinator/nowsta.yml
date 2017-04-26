@@ -1,0 +1,31 @@
+# ~/.tmuxinator/nowsta.yml
+
+name: nowsta
+root: ~/
+
+windows:
+  - server:
+      root: ~/Dev/Nowsta/api
+      layout: efe0,208x46,0,0{39x46,0,0[39x3,0,0,0,39x21,0,4,2,39x20,0,26,3],94x46,40,0[94x23,40,0,1,94x22,40,24,5],73x46,135,0,4}
+      panes:
+        - api-zeus:
+          - zeus start
+        - api-integration:
+          - foreman start -f Procfile -e .env -e .env.integration
+        - pay-integration:
+          - cd ../pay
+          - foreman start -f Procfile -e .env -e .env.integration
+        - web-dev:
+          - cd ../web
+          - foreman start -f Procfile.dev
+        - mobile-dev:
+          - cd ../mobile
+          - foreman start
+        - api-dev:
+          - foreman start -f Procfile -e .env -e .env.development
+  - api vim:
+      root: ~/Dev/Nowsta/api
+      panes:
+        - vim .
+  - api zsh:
+      root: ~/Dev/Nowsta/api
