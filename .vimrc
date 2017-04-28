@@ -89,10 +89,10 @@ map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
-map <leader><Leader>h <Plug>(easymotion-linebackward)
-map <leader><Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+map <space>h <Plug>(easymotion-linebackward)
+map <space>l <Plug>(easymotion-lineforward)
+map <space>j <Plug>(easymotion-j)
+map <space>k <Plug>(easymotion-k)
 
 "remove the search highlight
 nnoremap <leader><space> :noh<cr>
